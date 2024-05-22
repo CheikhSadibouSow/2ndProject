@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajoutDepense</title>
+   <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.css')}}">
+</head>
+<body>
+  {% block content%}
+  <div class="card">
+    <div class="card-header d-flex justify-content-between">
+      AJOUT DE NOUVEAU DEPENSE <a href="{{url_for('index')}}" class="btn btn-success">Retour Accueil</a>
+     </div>
+  </div>
+    <div class="container mt-3 col-sm-6">
+        <div class="text-center">
+            <h2>Mon<span class="text-warning">Budget</span></h2>
+            <p class="mb-5">Gestion du budget</p>
+        </div>
+        <h4 class="text-center text-success">AJOUT DEPENSE</h4>
+      
+          
+        <form action="{{ url_for('insert_depense') }}" class="was-validated"  method="POST">
+          <div class="mb-3 mt-3">
+            <label for="titre" class="form-label text-warning">Titre:</label>
+            <input type="text" class="form-control" id="titre" placeholder="Entrer le titre" name="titre" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Veuillez remplir ce champ.</div>
+          </div>
+          <div class="mb-3">
+            <label for="montant" class="form-label text-warning">Montant:</label>
+            <input type="number" class="form-control" id="montant" placeholder="Entrer le montant" name="montant" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Veuillez remplir ce champ.</div>
+          </div>
+    
+        <button type="submit" class="btn btn-success">Ajouter</button>
+        </form>
+    </div>
+  {% endblock content%}
+    <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+</body>
+</html>

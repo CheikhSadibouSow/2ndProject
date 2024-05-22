@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{%block title %}  {% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/bootstrap.min.css')}}"
+    />
+  </head>
+  <body>
+    {% include 'partials/_navbar.html' %}
+    {% block content %}
+    <div class="container mt-3 text-center">
+      <h2>Mon<span class="text-warning">Budget</span></h2>
+      <p class="mb-5">Gestion du budget</p>
+      <div class="container">
+        <div class="row justify-content-between m-3">
+          <div class="col-md-4">
+            <table class="table table-bordered shadow">
+              <thead class="bg-success">
+                <tr>
+                  <th scope="col">Budget</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>120.000 FCFA</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-4">
+            <table class="table table-bordered shadow">
+              <thead class="bg-success">
+                <tr>
+                  <th scope="col">Depenses</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>100.000 FCFA</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-4">
+            <table class="table table-bordered shadow">
+              <thead class="bg-success">
+                <tr>
+                  <th scope="col">Solde</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>20.000 FCFA</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      {% with messages = get_flashed_messages() %}
+       {% if messages %}
+          {% for message in messages %}
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>Success!</strong> {{ message }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+          {% endfor %}
+       {% endif%}
+     {% endwith %}
+      {% if data %}
+      <table class="table table-bordered table-sm">
+        <p class="text-start text-warning">Liste des depenses</p>
+        <thead class="bg-success">
+          <tr>
+            <th>Titre</th>
+            <th>Montant</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in data %}
+          <tr>
+            <td>{{row.titre}}</td>
+            <td>{{row.montant}} FCFA</td>
+            <td>
+              <a
+                href="{{ url_for('update_depense', id = row.id ) }}"
+                class="btn btn-warning m-1"
+            
+                >Modifier</a
+              >
+              <a
+                href="{{ url_for('delete_depense', id = row.id ) }}"
+                class="btn btn-danger m-1"
+                onclick="return confirm('Are u sure to delete ?')"
+                >Supprimer</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td>
+              <div class="mt-2 text-warning d-flex justify-content-between">
+                <p>AJOUTER DEPENSE</p>
+                <a class="text-warning" href="ajoutDepense"
+                  ><i class="fa-solid fa-circle-plus"></i
+                ></a>
+              </div>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      {% endif %}
+      {% if dt %}
+      <table class="table table-bordered table-sm">
+        <p class="text-start text-warning">Liste des revenus</p>
+        <thead class="bg-success">
+          <tr>
+            <th>Titre</th>
+            <th>Montant</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in dt %}
+          <tr>
+            <td>{{row.titre}}</td>
+            <td>{{row.montant}} FCFA</td>
+            <td>
+              <a
+                href="{{ url_for('update_revenu', id = row.id ) }}"
+                class="btn btn-warning m-1"
+                
+                >Modifier</a
+              >
+              <a
+                href="{{ url_for('delete_revenu', id = row.id ) }}"
+                class="btn btn-danger m-1"
+                onclick="return confirm('Are u sure to delete ?')"
+                >Supprimer</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td>
+              <div class="mt-2 text-warning d-flex justify-content-between">
+                <p>AJOUTER REVENUS</p>
+                <a class="text-warning" href="ajoutRevenu"
+                  ><i class="fa-solid fa-circle-plus"></i
+                ></a>
+              </div>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+   
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    {% endblock %}
+  </body>
+</html>
